@@ -24,7 +24,7 @@ class Solution {
 }
 
 
-//删除指定元素
+//删除指定元素【双指针】
 //https://leetcode.cn/problems/remove-element/
 class Solution {
     public int removeElement(int[] nums, int val) {
@@ -42,5 +42,26 @@ class Solution {
            }
         }
         return slowIndex;
+    }
+}
+
+//有序数组的平方【双指针】
+//https://leetcode.cn/problems/squares-of-a-sorted-array/
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+    //如果直接取绝对值再排序，最优的排序算法时间复杂度是nlogn, 太大了
+    int[] result = new int [nums.length];
+    int i = 0, j = nums.length-1, k = nums.length-1;
+    while(i <= j){ //注意是<=, 且是while, 不要写成fori了, i不应该每次迭代都动, 而是满足if才会动
+        if(nums[i] * nums[i] > nums[j] * nums[j]){
+            result[k--] = nums[i] * nums[i];
+            i++;
+        }
+        else{
+            result[k--] = nums[j] * nums[j];
+            j--;
+        }
+    }
+    return result; 
     }
 }
