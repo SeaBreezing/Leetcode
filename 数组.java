@@ -65,3 +65,29 @@ class Solution {
     return result; 
     }
 }
+
+// 长度最小的子数组【滑动窗口】
+// https://leetcode.cn/problems/minimum-size-subarray-sum/
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int result = Integer.MAX_VALUE; // 返回值
+        // 遇到子数组问题，优先想滑窗
+        // 对于for循环，每次迭代的是滑窗的终止索引还是起始索引？
+        // 如果是起始索引，还是变成了暴力搜索，所以forj应该for的是终止索引
+        // O(n): 对于每个元素，进滑窗的时候算一次（sum+=），出滑窗的时候再算一次（减sum-=）
+        int sum = 0, i = 0, sublength = 0;
+        for(int j = 0; j < nums.length; j++){
+            sum += nums[j];
+            // 精华在下面这个while循环，即滑窗的起始索引如何变化
+            while (sum >= target){ // 而不是if, 因为终止位置不变时，起始位置要不断变化，直至滑窗内sum<s
+                              // 而非终止位置每移动一次，起始位置最多只需要变一次
+                sublength = j - i + 1;
+                sum -= nums[i++];
+                result = Math.min(result, sublength); // 相当于每个符合条件的滑窗都看过一次了，最后保存的是最小长度
+            }
+        }
+        if (result == Integer.MAX_VALUE)
+            return 0;
+        else return result;
+    }
+}
