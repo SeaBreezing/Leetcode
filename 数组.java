@@ -91,3 +91,35 @@ class Solution {
         else return result;
     }
 }
+
+// 螺旋矩阵，注意起始用startx和starty，循环不变量是“终止用offset”。
+// https://leetcode.cn/problems/spiral-matrix-ii/
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int[] arr = new int[n * n];
+        for (int k = 0; k < n * n; k++)
+            arr[k] = k + 1;
+        int p = 0;
+        int[][] gen = new int[n][n];
+        int startx = 0, starty = 0, offset = 1; // 注意offset
+        for (int loop = 0; loop < n / 2; loop++) { // 循环次数，一共要转n/2圈
+            int i = starty, j = startx;
+            for (j = startx; j < n - offset; j++) // 上
+                gen[i][j] = arr[p++];
+            for (i = starty; i < n - offset; i++) { // 右
+                gen[i][j] = arr[p++];
+            }
+            for (j = n - offset; j > startx; j--) // 下
+                gen[i][j] = arr[p++];
+            for (i = n - offset; i > starty; i--) // 左
+                gen[i][j] = arr[p++];
+            startx++;
+            starty++;
+            offset++;
+        }
+        System.out.println(n * n - 1);
+        if (n % 2 != 0)
+            gen[n / 2][n / 2] = arr[n * n - 1];
+        return gen;
+    }
+}
