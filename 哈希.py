@@ -47,3 +47,19 @@ class Solution(object):
                 record.add(n)
         return True
 
+
+# 两数之和
+# https://leetcode.cn/problems/two-sum/
+class Solution(object):
+    def twoSum(self, nums, target):
+        # 遍历数组，当target-nums[i]在dict的key中存在，则返回value(下标)
+        # 否则将nums[i]及其下标存入dict
+        # j -> int, i -> index
+        rec = {} # 创建一个hashtable
+        for i in range(len(nums)):
+            j = target - nums[i]
+            if j in rec.keys():
+            # if rec.has_key(j): # 更快，但python3删掉了
+                return i, rec[j] # 返回i和j在nums中对应的数组下标
+            else:
+                rec[nums[i]] = i
