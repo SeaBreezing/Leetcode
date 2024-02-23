@@ -1,3 +1,4 @@
+# 前中后序遍历
 # https://leetcode.cn/problems/binary-tree-preorder-traversal/
 # https://leetcode.cn/problems/binary-tree-inorder-traversal/
 # https://leetcode.cn/problems/binary-tree-postorder-traversal/
@@ -24,7 +25,7 @@ class Solution(object):
         # 后序
         # return left+right+[root.val]
 
-# 【102】层序遍历
+#【102】层序遍历
 # https://leetcode.cn/problems/binary-tree-level-order-traversal/description/
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -55,3 +56,28 @@ class Solution:
             result.append(level)
         return result
 
+#【翻转二叉树】
+# https://leetcode.cn/problems/invert-binary-tree/
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def swap(self, a, b):
+        tmp = a
+        a = b
+        b = tmp
+        return a, b
+    def invertTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        if not root:
+            return None
+        root.left, root.right = self.swap(root.left, root.right)
+        root.left = self.invertTree(root.left)
+        root.right = self.invertTree(root.right)
+        return root
