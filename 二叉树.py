@@ -56,7 +56,7 @@ class Solution:
             result.append(level)
         return result
 
-#【翻转二叉树】
+#【翻转二叉树】递归法，我没有写层序遍历的方法
 # https://leetcode.cn/problems/invert-binary-tree/
 # Definition for a binary tree node.
 # class TreeNode(object):
