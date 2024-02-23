@@ -77,6 +77,8 @@ class Solution(object):
         """
         if not root:
             return None
+        # 注意，写前序和后序都可以，中序不是这个逻辑。如果按这个逻辑写中序，永远只能遍历一个子树，根节点的另一个子树遍历不到。画一下就知道了
+        # 遍历只是流程，在不断的遍历中做翻转的操作
         root.left, root.right = self.swap(root.left, root.right)
         root.left = self.invertTree(root.left)
         root.right = self.invertTree(root.right)
