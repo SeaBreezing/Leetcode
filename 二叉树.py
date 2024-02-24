@@ -83,3 +83,24 @@ class Solution(object):
         root.left = self.invertTree(root.left)
         root.right = self.invertTree(root.right)
         return root
+
+#【对称二叉树】递归
+# https://leetcode.cn/problems/symmetric-tree/?envType=study-plan-v2&envId=top-100-liked
+class Solution(object):
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        # 不是左右子树相同，是对称
+        i = 0
+
+        def isSame(p, q):
+            # p and q are two TreeNodes to be compared
+            # p和q是两个子树
+            if (p is None or q is None):
+                return p is q    
+            return ((p.val == q.val) and isSame(p.left, q.right) and isSame(p.right, q.left))
+        
+        return isSame(root.left, root.right)
+
