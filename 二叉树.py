@@ -129,10 +129,10 @@ class Solution:
         if root is None:
             return flag, height
         flag, lefth = self.sub_is(root.left, flag, height)
-        if flag == -1:
+        if flag == -1: # 左子树不平衡
             return flag, height
         flag, righth = self.sub_is(root.right, flag, height)
-        if flag == -1 or abs(lefth - righth) > 1:
+        if flag == -1 or abs(lefth - righth) > 1: # 右子树不平衡 或 左右差>1（这里逻辑上是两件事，为了代表简洁合在一起写了）
             flag = -1
             return flag, height
         height = max(lefth, righth) + 1
