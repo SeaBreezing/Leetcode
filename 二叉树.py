@@ -103,4 +103,35 @@ class Solution(object):
             return ((p.val == q.val) and isSame(p.left, q.right) and isSame(p.right, q.left))
         
         return isSame(root.left, root.right)
+#【平衡二叉树】递归
+# https://leetcode.cn/problems/balanced-binary-tree/
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        # 问题：
+        # 根 左右 如何是平衡 关注小局部
+        # 左 是
+        # 右 是
+        # 左右 高度 绝对值 <= 1
+        height, flag = 0, 1
+        flag, height = self.sub_is(root, flag, height)
+        if(flag == -1):
+            return False
+        else:
+            return True
 
+    def sub_is(self, root, flag, height):
+        if root is None:
+            return flag, height
+        flag, lefth = self.sub_is(root.left, flag, height)
+        flag, righth = self.sub_is(root.right, flag, height)
+        if abs(lefth - righth) > 1:
+            flag = -1
+            return flag, height
+        height = max(lefth, righth) + 1
+        return flag, height
