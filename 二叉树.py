@@ -129,8 +129,12 @@ class Solution:
         if root is None:
             return flag, height
         flag, lefth = self.sub_is(root.left, flag, height)
+        if flag == -1: # 左子树不平衡
+            return flag, height
         flag, righth = self.sub_is(root.right, flag, height)
-        if abs(lefth - righth) > 1:
+        if flag == -1: # 右子树不平衡
+            return flag, height
+        if abs(lefth - righth) > 1: # 都平衡但高度差>1
             flag = -1
             return flag, height
         height = max(lefth, righth) + 1
