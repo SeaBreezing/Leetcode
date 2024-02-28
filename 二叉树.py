@@ -137,3 +137,29 @@ class Solution:
             return flag, height
         height = max(lefth, righth) + 1
         return flag, height
+
+#【二叉树右视图】
+# https://leetcode.cn/problems/binary-tree-right-side-view/?envType=study-plan-v2&envId=top-100-liked
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+# 对于递归来说，返回值和参数不一定要一样？
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        # 先遍历右子树，再遍历左子树，左子树中深度（把深度记下来）大于结果列表长度，才记入结果
+        ans = []
+        def dfs(root, depth):
+            if root is None:
+                return
+            if depth == len(ans):
+                ans.append(root.val)
+            dfs(root.right, depth+1) # 先遍历右子树
+            dfs(root.left, depth+1)
+        dfs(root, 0)
+        return ans
+                
+
+            
