@@ -160,6 +160,25 @@ class Solution:
             dfs(root.left, depth+1)
         dfs(root, 0)
         return ans
-                
+
+#【二叉搜索树】递归
+# https://leetcode.cn/problems/validate-binary-search-tree/description/
+class Solution:
+    # 方法一：中序遍历，存入一个数组，数组单调递增，则True
+    # 方法二：递归。误区：不是根节点比与左右节点比较，而是与左右子树比较
+    # 往当前节点的左子树遍历时，对左区间没有要求(-inf), 右区间要求是当前节点值
+    # 往当前节点的右子树遍历时，对右区间没有要求(-inf), 左区间要求是当前节点值
+    # 注意，递归嵌套时，区间是不断向下传递的，比如遍历右子树(1)的左子树(2)
+    # 虽然第(2)步独立看对左区间没有要求，但传递了第(1)步对左子树的要求，递归时参数也得到了传递
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        def isBST(root, left=-inf, right=inf):
+            if root is None:
+                return True
+            x = root.val # 首先要获得当前节点值
+            if root is None: # 递归的边界条件，即空节点
+                return True
+            judge = left < root.val < right
+            return judge and isBST(root.left, left, x) and isBST(root.right, x, right) # 左子树
+        return isBST(root)
 
             
