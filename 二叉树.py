@@ -212,7 +212,7 @@ class Solution:
         diameter = lefth + righth
         return max(self.diameterOfBinaryTree(root.left), self.diameterOfBinaryTree(root.right), diameter)  
 
-#【从中序与后序遍历序列构造二叉树】很慢
+#【从中序与后序遍历序列构造二叉树】很慢，打印的输出有助于理解递归
 # https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal/description/
 # Definition for a binary tree node.
 # class TreeNode:
@@ -229,7 +229,7 @@ class Solution:
             return
         # 用后序的最后一个切割中序
         root = TreeNode(postorder[-1])
-        # print(f'root1:{root}')
+        print(f'root1:{root}')
         root_left, root_right = [], []
         for i in range(len(inorder)):
             if inorder[i] == root.val:
@@ -240,5 +240,5 @@ class Solution:
         post_right = postorder[(len(root_left)):(len(root_left)+len(root_right))]
         root.left = self.buildTree(root_left, post_left) # 用后序的最后一个切割中序后，得到的两个子树分开处理即可，先后不重要
         root.right = self.buildTree(root_right, post_right)
-        # print(f'root2:{root}')
+        print(f'root2:{root}')
         return root
