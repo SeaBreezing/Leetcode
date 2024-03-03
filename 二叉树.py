@@ -160,7 +160,16 @@ class Solution:
             dfs(root.left, depth+1)
         dfs(root, 0)
         return ans
-
+        
+#【完全二叉树的节点个数】
+# https://leetcode.cn/problems/count-complete-tree-nodes/
+class Solution:
+    # 分解为子问题：左子树+右子树+1
+    def countNodes(self, root: Optional[TreeNode]) -> int:
+        if root is None:
+            return 0
+        return self.countNodes(root.left)+self.countNodes(root.right) + 1
+        
 #【二叉搜索树】先得到当前节点值，再分别往左往右，这是前序遍历
 # https://leetcode.cn/problems/validate-binary-search-tree/description/
 class Solution:
