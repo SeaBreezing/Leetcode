@@ -135,7 +135,7 @@ class Solution:
         if flag == -1 or abs(lefth - righth) > 1: # 右子树不平衡 或 左右差>1（这里逻辑上是两件事，为了代表简洁合在一起写了）
             flag = -1
             return flag, height
-        height = max(lefth, righth) + 1
+        height = max(lefth, righth) + 1 # 这里加的1是当前层的1，不然最后就是0+0+0+...
         return flag, height
 
 #【二叉树右视图】
