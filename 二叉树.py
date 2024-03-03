@@ -211,3 +211,34 @@ class Solution:
         print(f'righth:{righth}')
         diameter = lefth + righth
         return max(self.diameterOfBinaryTree(root.left), self.diameterOfBinaryTree(root.right), diameter)  
+
+#【从中序与后序遍历序列构造二叉树】很慢
+# https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal/description/
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        # 用后序的最后一个切割中序，将中序分为左子树和右子树
+        # 如何从后序中找到中序：切割的子段和中序被分割后的子段大小相同，且后序按照左右中遍历
+        # 递归
+        if inorder == []:
+            return
+        # 用后序的最后一个切割中序
+        root = TreeNode(postorder[-1])
+        # print(f'root1:{root}')
+        root_left, root_right = [], []
+        for i in range(len(inorder)):
+            if inorder[i] == root.val:
+                root_left = inorder[:i]# 数组, 第i+1个元素前的i个都放入root_left
+                root_right = inorder[(i+1):] # 从索引i+1开始，中间那个是节点
+        # 用切割后的中序找后序
+        post_left = postorder[:len(root_left)]
+        post_right = postorder[(len(root_left)):(len(root_left)+len(root_right))]
+        root.left = self.buildTree(root_left, post_left) # 用后序的最后一个切割中序后，得到的两个子树分开处理即可，先后不重要
+        root.right = self.buildTree(root_right, post_right)
+        # print(f'root2:{root}')
+        return root
