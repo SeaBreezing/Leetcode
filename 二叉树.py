@@ -191,4 +191,23 @@ class Solution:
             return judge and isBST(root.left, left, x) and isBST(root.right, x, right) # 左子树
         return isBST(root)
 
-            
+#【二叉树的直径】贪心，慢
+# https://leetcode.cn/problems/diameter-of-binary-tree/?envType=study-plan-v2&envId=top-100-liked
+class Solution:
+    # maxd = 0
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        # 子树的子树可能非常复杂，直径不一定经过了根节点
+        # 当前节点代表的树的直径=左子树深度+右子树深度
+        # 还需要一个后序遍历，每个子树都要走到（贪心）
+        def height(root):
+            if root is None:
+                return 0
+            return max(height(root.left), height(root.right))+1
+        if root is None:
+            return 0    
+        lefth = height(root.left) # 注意是左子树，不包括根节点，不要自己验证反而验证错了
+        righth = height(root.right)
+        print(f'lefth:{lefth}')
+        print(f'righth:{righth}')
+        diameter = lefth + righth
+        return max(self.diameterOfBinaryTree(root.left), self.diameterOfBinaryTree(root.right), diameter)  
