@@ -170,7 +170,7 @@ class Solution:
             return 0
         return self.countNodes(root.left)+self.countNodes(root.right) + 1
         
-#【二叉搜索树】先得到当前节点值，再分别往左往右，这是前序遍历
+#【判定二叉搜索树】先得到当前节点值，再分别往左往右，这是前序遍历
 # https://leetcode.cn/problems/validate-binary-search-tree/description/
 class Solution:
     # 方法一：中序遍历，存入一个数组，数组单调递增，则True
