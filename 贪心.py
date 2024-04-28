@@ -1,3 +1,4 @@
+# 局部最优推出全局最优，并举不出反例，那么试试贪心！
 # 分发饼干
 # https://leetcode.cn/problems/assign-cookies/
 class Solution:
