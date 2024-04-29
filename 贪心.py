@@ -43,4 +43,15 @@ class Solution:
     
         return result
         
-        
+# 跳跃游戏        
+# https://leetcode.cn/problems/jump-game/description/
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        cover = 0
+        cur = 0
+        while cur <= cover: # python允许while循环的边界变化 for 循环不允许
+            cover = max(cover, cur + nums[cur])
+            cur += 1
+            if cover >= len(nums) - 1:
+                return True
+        return False
