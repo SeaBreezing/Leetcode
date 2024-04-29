@@ -63,8 +63,6 @@ if flag == 1:
 
 
 
-
-
 s = "ababcbacadefegdehijhklij"
 
 
@@ -81,9 +79,19 @@ def partitionLabels(s: str):
 
     
     # 2. 
-    part_index = []
-    
-    while i < 
+    cut_index = []
+    start = s[0]
+    idx = 0
+    cut_idx_tmp = per_max[start]
+    while idx < cut_idx_tmp:
+        if per_max[s[idx]] > cut_idx_tmp:
+            cut_idx_tmp = per_max[s[idx]]
+        if idx == cut_idx_tmp:
+            cut_index.append(cut_idx_tmp)
+            
+
+             
+
 
              
 
