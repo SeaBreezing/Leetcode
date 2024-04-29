@@ -65,6 +65,31 @@ if flag == 1:
 
 
 
+s = "ababcbacadefegdehijhklij"
+
+
+def partitionLabels(s: str):
+    # 1. 先找出所有字母出现的最大下标
+    per_max = {}
+    for st in range(len(s)):
+        if s[st] in per_max.keys():
+            if st > per_max[s[st]]:
+                per_max[s[st]] = st
+        else:
+            per_max.update({s[st]: st})
+    print(per_max)
+
+    
+    # 2. 
+    part_index = []
+    
+    while i < 
+
+             
+
+
+
+
 
 
 
