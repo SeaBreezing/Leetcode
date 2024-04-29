@@ -22,3 +22,24 @@ class Solution:
                 sj -= 1
                 result += 1
         return result
+
+# 最大子数组和
+# https://leetcode.cn/problems/maximum-subarray/description/
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        result = float('-inf')
+        count = 0
+    
+        for i in range(len(nums)):
+            count += nums[i]
+            if count > result:
+                result = count
+            # 注意，先更新还是先清零的位置很重要。如果全为nums全为-1，需要有-1>-inf更新result
+            # 而，清零的只是当前和，并不是被更新的结果
+            if count < 0: # 即当前和是负数，对最终结果只会有不好的影响
+                count = 0 # 直接将结果清零 贪心就是这里
+
+    
+        return result
+        
+        
