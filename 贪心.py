@@ -55,3 +55,41 @@ class Solution:
             if cover >= len(nums) - 1:
                 return True
         return False
+
+# 划分字母区间
+# https://leetcode.cn/problems/partition-labels/
+class Solution(object):
+    def partitionLabels(self, s):
+        per_max = {}
+        for st in range(len(s)):
+            if s[st] in per_max.keys():
+                if st > per_max[s[st]]:
+                    per_max[s[st]] = st
+            else:
+                per_max.update({s[st]: st})
+        print(per_max)
+
+        
+        # 2. 
+        cut_index = []
+        start = s[0]
+        idx = 0
+        cut_idx_tmp = per_max[start]
+        while idx < len(s):
+            while idx <= cut_idx_tmp:
+                print(f'当前字母最大下标处：{per_max[s[idx]]}, tmp切割: {cut_idx_tmp}, {s[idx]}')
+                if per_max[s[idx]] > cut_idx_tmp:
+                    cut_idx_tmp = per_max[s[idx]]
+                if idx == cut_idx_tmp:
+                    cut_index.append(cut_idx_tmp)
+                idx += 1
+            
+            print(f'idx:{idx}, cut_idx_tmp:{cut_idx_tmp}')
+            if idx < len(s):
+                cut_idx_tmp = per_max[s[idx]]
+
+        print(cut_index)
+        cut_len = [cut_index[0] + 1]
+        cut_len.extend([cut_index[i+1] - cut_index[i] for i in range(len(cut_index) - 1)])
+        
+        return cut_len
