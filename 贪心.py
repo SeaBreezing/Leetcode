@@ -60,6 +60,8 @@ class Solution:
 # https://leetcode.cn/problems/partition-labels/
 class Solution(object):
     def partitionLabels(self, s):
+
+        # 1. 得到每个字母的最大出现下标
         per_max = {}
         for st in range(len(s)):
             if s[st] in per_max.keys():
@@ -70,11 +72,13 @@ class Solution(object):
         print(per_max)
 
         
-        # 2. 
+        # 2. 在从当前起始点（比如切割点的下一个下标）进行到『暂时切割点』时，过程中会被迫碰到一些字母，如果这些字母出现的最大下标大于『暂时切割点』，需要延长『暂时切割点』
+        # 注意 idx += 1 的写法
         cut_index = []
         start = s[0]
         idx = 0
         cut_idx_tmp = per_max[start]
+        
         while idx < len(s):
             while idx <= cut_idx_tmp:
                 print(f'当前字母最大下标处：{per_max[s[idx]]}, tmp切割: {cut_idx_tmp}, {s[idx]}')
@@ -83,11 +87,10 @@ class Solution(object):
                 if idx == cut_idx_tmp:
                     cut_index.append(cut_idx_tmp)
                 idx += 1
-            
             print(f'idx:{idx}, cut_idx_tmp:{cut_idx_tmp}')
             if idx < len(s):
                 cut_idx_tmp = per_max[s[idx]]
-
+        
         print(cut_index)
         cut_len = [cut_index[0] + 1]
         cut_len.extend([cut_index[i+1] - cut_index[i] for i in range(len(cut_index) - 1)])
