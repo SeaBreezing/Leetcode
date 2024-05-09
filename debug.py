@@ -91,6 +91,21 @@ def partitionLabels(s: str):
             
 
              
+# 构造二叉搜索树
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+class Solution:
+    def bstFromPreorder(self, preorder) -> TreeNode:
+        if preorder:
+            p, root = [[], []], TreeNode(preorder.pop(0))
+            [p[val > root.val].append(val) for val in preorder]
+            root.left = self.bstFromPreorder(p[0])
+            root.right = self.bstFromPreorder(p[1])
+            return root
+
 
 
              
