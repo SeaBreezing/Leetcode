@@ -96,3 +96,16 @@ class Solution(object):
         cut_len.extend([cut_index[i+1] - cut_index[i] for i in range(len(cut_index) - 1)])
         
         return cut_len
+
+# 买卖股票的最佳时机II 将利润分解为每天
+# https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        profit_perday = []
+        for i in range(len(prices) - 1):
+            profit_perday.append(prices[i+1] - prices[i])
+        res = 0
+        for profit in profit_perday:
+            if profit > 0:
+                res += profit
+        return res
