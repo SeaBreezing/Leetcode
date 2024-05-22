@@ -242,3 +242,37 @@ class Solution:
         root.right = self.buildTree(root_right, post_right)
         print(f'root2:{root}')
         return root
+
+
+
+# ACM模式 使用前序和中序遍历构造二叉树，并使用后序遍历打印出来
+class Node:
+    def __init__(self, val=None, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+def build_tree(preorder, inorder):
+    if not preorder or not inorder:
+        return None
+    root_val = preorder[0]
+    left_inorder = inorder[:inorder.index(root_val)]
+    right_inorder = inorder[inorder.index(root_val)+1:]
+    left_preorder = preorder[1:len(left_inorder) + 1]
+    right_preorder = preorder[len(left_inorder) + 1:]
+
+    root = Node(root_val)
+    root.left = build_tree(left_preorder, left_inorder)
+    root.right = build_tree(right_preorder, right_inorder)
+    return root
+
+def postorder_travel(root):
+    if not root:
+        return []
+    left = postorder_travel(root.left)
+    right = postorder_travel(root.right)
+    return left + right + [root.val]
+    
+preorder, inorder = map(str, input().split())
+root = build_tree(preorder, inorder)
+postorder = postorder_travel(root)
+print(''.join(postorder)) # 将列表中所有元素串起来，分隔符为引号内的东西（此处即没有分隔符）
